@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Roll</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contain {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dice-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .nums {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .lst {
+            width: 100%;
+            max-height: 140px;
+            overflow-y: auto;
+            list-style: none;
+            text-align: left;
+            border-top: 1px solid #334155;
+            padding-top: 12px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .lst li {
+            padding: 4px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <div class="contain">
+        <div class="dice-icon">🎲</div>
+        <div class="nums">1</div>
+        <button class="btn">ROLL</button>
+        <ul class="lst"></ul>
+    </div>
+
+    <script>
+        const num = document.querySelector('.nums');
+        const btn = document.querySelector('.btn');
+        const lst = document.querySelector('.lst');
+
+        num.innerHTML = Math.floor(Math.random() * 6) + 1;
+
+        dies();
+        function dies() {
+            let a = 1;
+
+            btn.addEventListener('click', () => {
+                let ran = Math.floor(Math.random() * 6) + 1;
+                num.innerHTML = ran;
+
+                const li = document.createElement('li');
+                li.innerHTML = `Roll ${a++}: ${ran}`;
+                lst.appendChild(li);
+                lst.scrollTop = lst.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>

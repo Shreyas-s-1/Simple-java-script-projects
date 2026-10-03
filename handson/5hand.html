@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        body {
+            background-color: #f7f4ef;
+            color: #1a1a1a;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .conainer {
+            background: #ffffff;
+            border: 3px solid #1a1a1a;
+            box-shadow: 6px 6px 0px #1a1a1a;
+            padding: 32px;
+            width: 340px;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 24px;
+            line-height: 1.4;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #1a1a1a;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+            margin-bottom: 16px;
+            background: #fff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input:focus {
+            background: #fffdf0;
+        }
+
+        .btn {
+            width: 100%;
+            background-color: #ffde59;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+            padding: 12px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #1a1a1a;
+            transition: transform 0.1s, box-shadow 0.1s;
+            margin-top: 4px;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background-color: #ffd43b;
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #1a1a1a;
+        }
+
+        .pa {
+            margin-top: 24px;
+            font-size: 18px;
+            font-weight: 800;
+            border-top: 2px dashed #1a1a1a;
+            padding-top: 16px;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="conainer">
+        <h1>Tip Calculator</h1>
+        <p>Enter the bill amount and tip percentage to calculate the total.</p>
+
+        <label>Bill amount ($)</label>
+        <input type="number" class="bill" min="1" placeholder="0.00">
+
+        <label>Tip percentage (%)</label>
+        <input type="number" class="tip" min="1" placeholder="15">
+
+        <button class="btn">Calculate</button>
+
+        <h2 class="pa"></h2>
+    </div>
+
+    <script>
+        const bill = document.querySelector('.bill');
+        const tip = document.querySelector('.tip');
+        const pa = document.querySelector('.pa');
+        const btn = document.querySelector('.btn');
+
+        btn.addEventListener('click', () => {
+            const billVal = parseFloat(bill.value);
+            const tipVal = parseFloat(tip.value);
+
+            if (isNaN(billVal) || isNaN(tipVal)) {
+                pa.innerHTML = "Please enter valid numbers!";
+                return;
+            }
+
+            const tipAmount = (billVal * tipVal) / 100;
+            const total = billVal + tipAmount;
+
+            pa.innerHTML = `TOTAL: $${total.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>

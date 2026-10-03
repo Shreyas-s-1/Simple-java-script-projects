@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>color flipper</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        transition: background 0.4s ease;
+      }
+
+      .container {
+        width: min(90vw, 420px);
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+        padding: 30px 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 14px 26px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.28);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 24px rgba(79, 70, 229, 0.32);
+      }
+
+      .h2 {
+        min-height: 32px;
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #1f2937;
+      }
+    </style>
+</head>
+<body>
+    
+<div class="container">
+    <button class="btn">Generate</button>
+<h2 class="h2"></h2>
+</div>
+
+
+<script>
+const btn=document.querySelector('.btn');
+const h=document.querySelector('.h2');
+
+btn.addEventListener('click' ,()=>{
+
+const col=Math.floor(Math.random()* 16777215).toString(16);
+
+
+document.body.style.backgroundColor="#"+col;
+
+// console.log(col)
+
+h.innerHTML=col;
+
+h.style.color="#"+col;
+
+})
+
+</script>
+</body> 
+</html>

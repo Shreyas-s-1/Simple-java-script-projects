@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .year {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 32px;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown {
+            display: flex;
+            gap: 16px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 16px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 80px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-box div:first-child {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 4px;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Countdown to New Year</h2>
+    <div class="year" id="targetYear">2027</div>
+    
+    <div class="countdown">
+        <div class="time-box">
+            <div id="day">0</div>
+            <div class="label">Days</div>
+        </div>
+        <div class="time-box">
+            <div id="hour">0</div>
+            <div class="label">Hours</div>
+        </div>
+        <div class="time-box">
+            <div id="minute">0</div>
+            <div class="label">Mins</div>
+        </div>
+        <div class="time-box">
+            <div id="second">0</div>
+            <div class="label">Secs</div>
+        </div>
+    </div>
+
+    <script>
+        const dayEl = document.getElementById('day');
+        const hourEl = document.getElementById('hour');
+        const minuteEl = document.getElementById('minute');
+        const secondEl = document.getElementById('second');
+        const targetYearEl = document.getElementById('targetYear');
+
+        const currentYear = new Date().getFullYear();
+        const nextYear = currentYear + 1;
+        targetYearEl.innerText = nextYear;
+
+        const newYearTime = new Date(`January 1, ${nextYear} 00:00:00`);
+
+        function updateCountdown() {
+            const currentTime = new Date();
+            const diff = newYearTime - currentTime;
+
+            if (diff <= 0) {
+                dayEl.innerText = '0';
+                hourEl.innerText = '0';
+                minuteEl.innerText = '0';
+                secondEl.innerText = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            dayEl.innerText = days < 10 ? '0' + days : days;
+            hourEl.innerText = hours < 10 ? '0' + hours : hours;
+            minuteEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+            secondEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>

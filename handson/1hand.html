@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #1a202c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d3748;
+            letter-spacing: -0.025em;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fafbfc;
+        }
+
+        .task-input:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+            background-color: #ffffff;
+        }
+
+        .add-btn {
+            background-color: #3182ce;
+            color: #ffffff;
+            border: none;
+            padding: 0 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        .add-btn:active {
+            transform: scale(0.97);
+        }
+
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f7fafc;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .task-item:hover {
+            background-color: #edf2f7;
+        }
+
+        .task-text {
+            font-size: 0.95rem;
+            color: #2d3748;
+            word-break: break-word;
+            flex: 1;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #a0aec0;
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            color: #e53e3e;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #fff5f5;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 0.95rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">My To-Do List</h1>
+        
+        <div class="input-group">
+            <input type="text" class="task-input" placeholder="Add a new task...">
+            <button class="add-btn">Add</button>
+        </div>
+
+        <ul class="task-list"></ul>
+        <div class="empty-state">No tasks yet. Add one above!</div>
+    </div>
+
+    <script>
+        const taskInput = document.querySelector('.task-input');
+        const addBtn = document.querySelector('.add-btn');
+        const taskList = document.querySelector('.task-list');
+        const emptyState = document.querySelector('.empty-state');
+
+        function updateEmptyState() {
+            if (taskList.children.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText === "") return;
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+
+            const span = document.createElement('span');
+            span.className = 'task-text';
+            span.textContent = taskText;
+            span.addEventListener('click', () => {
+                li.classList.toggle('completed');
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', () => {
+                li.remove();
+                updateEmptyState();
+            });
+
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            taskInput.value = "";
+            updateEmptyState();
+        }
+
+        addBtn.addEventListener('click', addTask);
+
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        updateEmptyState();
+    </script>
+</body>
+</html>

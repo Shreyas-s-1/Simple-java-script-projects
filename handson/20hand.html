@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #1a202c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #2d3748;
+            letter-spacing: -0.025em;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #e2e8f0;
+            color: #2d3748;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .clear {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            border-color: #fed7d7;
+        }
+
+        .clear:hover {
+            background-color: #fed7d7;
+            color: #c53030;
+        }
+
+        .txt-area {
+            width: 100%;
+            height: 180px;
+            padding: 16px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fafbfc;
+        }
+
+        .txt-area:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+            background-color: #ffffff;
+        }
+
+        .b {
+            font-weight: bold;
+        }
+
+        .i {
+            font-style: italic;
+        }
+
+        .r {
+            text-align: right;
+        }
+
+        .l {
+            text-align: left;
+        }
+
+        .m {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="title">Text Editor Toolkit</h1>
+        
+        <div class="toolbar">
+            <button class="bold">Bold</button>
+            <button class="italic">Italic</button>
+            <button class="lside">Left</button>
+            <button class="middle">Middle</button>
+            <button class="rside">Right</button>
+            <button class="lower">Lower Case</button>
+            <button class="upper">Upper Case</button>
+            <button class="clear">Clear</button>
+        </div>
+
+        <textarea class="txt-area" placeholder="Enter text here..."></textarea>
+    </div>
+
+    <script>
+        const txt = document.querySelector('.txt-area');
+        const clr = document.querySelector('.clear');
+        const bold = document.querySelector('.bold');
+        const italic = document.querySelector('.italic');
+        const right = document.querySelector('.rside');
+        const left = document.querySelector('.lside');
+        const middle = document.querySelector('.middle');
+        const lower = document.querySelector('.lower');
+        const upper = document.querySelector('.upper');
+
+        clr.addEventListener('click', () => {
+            txt.value = "";
+            txt.style.textTransform = "none";
+            txt.classList.remove('b', 'i', 'r', 'l', 'm');
+        });
+
+        bold.addEventListener('click', () => {
+            txt.classList.toggle('b');
+        });
+
+        italic.addEventListener('click', () => {
+            txt.classList.toggle('i');
+        });
+
+        right.addEventListener('click', () => {
+            txt.classList.remove('l', 'm');
+            txt.classList.toggle('r');
+        });
+
+        left.addEventListener('click', () => {
+            txt.classList.remove('r', 'm');
+            txt.classList.toggle('l');
+        });
+
+        middle.addEventListener('click', () => {
+            txt.classList.remove('r', 'l');
+            txt.classList.toggle('m');
+        });
+
+        lower.addEventListener('click', () => {
+            if (txt.style.textTransform === "lowercase") {
+                txt.style.textTransform = "none";
+            } else {
+                txt.style.textTransform = "lowercase";
+            }
+        });
+
+        upper.addEventListener('click', () => {
+            if (txt.style.textTransform === "uppercase") {
+                txt.style.textTransform = "none";
+            } else {
+                txt.style.textTransform = "uppercase";
+            }
+        });
+    </script>
+</body>
+</html>

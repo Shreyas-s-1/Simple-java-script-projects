@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Down</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        body {
+            background-color: #111318;
+            color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #1c1f26;
+            border: 1px solid #2d323d;
+            padding: 40px 32px;
+            border-radius: 12px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            width: 320px;
+        }
+
+        .pa {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 32px;
+            color: #ffffff;
+            background: #111318;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #2d323d;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .str {
+            background-color: #10b981;
+            color: #ffffff;
+        }
+        .str:hover { background-color: #059669; }
+
+        .stp {
+            background-color: #f59e0b;
+            color: #ffffff;
+        }
+        .stp:hover { background-color: #d97706; }
+
+        .rst {
+            background-color: #374151;
+            color: #9ca3af;
+            margin-bottom: 0;
+        }
+        .rst:hover { background-color: #4b5563; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="pa">16:40</p>
+        <button class="str">START</button>
+        <button class="stp">STOP</button>
+        <button class="rst">RESET</button>
+    </div>
+
+    <script>
+        const pa = document.querySelector('.pa');
+        const str = document.querySelector('.str');
+        const stp = document.querySelector('.stp');
+        const rst = document.querySelector('.rst');
+
+        let rs = 900; // 1000 seconds
+        let time = rs;
+        let interval;
+
+        function time_converter() {
+            let minutes = Math.floor(time / 60);
+            let seconds = Math.floor(time % 60);
+            let formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            pa.innerHTML = formattedTime;
+        }
+
+        function start() {
+            clearInterval(interval); // Prevent multiple intervals stacking
+            interval = setInterval(() => {
+                if (time > 0) {
+                    time--;
+                    time_converter();
+                }
+                if (time === 0) {
+                    clearInterval(interval);
+                    alert("Time's up!");
+                }
+            }, 1000);
+        }
+
+        function stop() {
+            clearInterval(interval);
+        }
+
+        function reset() {
+            clearInterval(interval);
+            time = rs;
+            time_converter();
+        }
+
+        str.addEventListener('click', start);
+        stp.addEventListener('click', stop);
+        rst.addEventListener('click', reset);
+
+        // Initialize display on load
+        time_converter();
+    </script>
+</body>
+</html>

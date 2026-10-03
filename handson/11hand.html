@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 700px;
+            padding: 0 20px;
+        }
+
+        /* Shared card styles */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Accent top borders for visual differentiation */
+        .card.work-card { border-top: 4px solid #3b82f6; }
+        .card.pro-card { border-top: 4px solid #10b981; }
+        .card.app-card { border-top: 4px solid #8b5cf6; }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Number styling using your classes */
+        .work, .pro, .app {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card work-card">
+            <span class="label">Work Done</span>
+            <div class="work">0</div>
+        </div>
+
+        <div class="card pro-card">
+            <span class="label">Projects</span>
+            <div class="pro">0</div>
+        </div>
+
+        <div class="card app-card">
+            <span class="label">Applications</span>
+            <div class="app">0</div>
+        </div>
+    </div>
+
+    <script>
+        const work = document.querySelector('.work');
+        const pro = document.querySelector('.pro');
+        const app = document.querySelector('.app');
+
+        let w = 0;
+        let p = 0;
+        let a = 0;
+
+        let arr = null;
+
+        function update() {
+            if (w < 266) w++;
+            if (p < 100) p++;
+            if (a < 126) a++; 
+
+            work.innerHTML = w;
+            pro.innerHTML = p;
+            app.innerHTML = a;
+
+            if (w < 266 || p < 100 || a < 126) {
+                arr = setTimeout(update, 2);
+            }
+        }
+
+        update();
+    </script>
+</body>
+</html>

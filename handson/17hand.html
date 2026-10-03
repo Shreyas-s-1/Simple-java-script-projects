@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Fetch</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .quo {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            color: #f8fafc;
+        }
+
+        .auth {
+            font-size: 0.95rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #38bdf8;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <p class="quo"></p>
+        <h1 class="auth"></h1>
+        <button class="btn"> click me </button>
+    </div>
+
+    <script>
+        const btn = document.querySelector('.btn')
+        const quo = document.querySelector('.quo')
+        const auth = document.querySelector('.auth')
+           
+        let i = 1;
+           
+        async function gen(){
+            const url = "https://dummyjson.com/quotes"
+            const res = await fetch(url);
+            const data = await res.json();
+
+            quo.innerHTML = data.quotes[i].quote;
+            auth.innerHTML = data.quotes[i].author;
+        }
+
+        gen();
+
+        btn.addEventListener('click', () => {
+            gen()
+            i++;
+        })
+    </script>
+</body>
+</html>

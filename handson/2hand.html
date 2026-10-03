@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TIMER</title>
+<style>
+    body{
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      
+    }
+</style>
+</head>
+
+<body>
+<h1>CURRENT TIME</h1>
+<h1 id="demo"></h1>
+
+<script> 
+let dem= document.getElementById("demo");
+setInterval(function fun(){
+ const date = new Date();
+dem.innerHTML=date.toLocaleTimeString();
+},1000);
+</script>
+
+</body>
+</html>

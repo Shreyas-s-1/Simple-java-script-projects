@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Position</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 32px;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+
+        .motte {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 48px;
+            height: 48px;
+            background-color: #f85149;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(248, 81, 73, 0.4);
+            transition: transform 0.05s linear;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="x">X : 0</h1>
+        <h1 class="y">Y : 0</h1>
+    </div>
+
+    <div class="motte"></div>
+
+    <script>
+        const x = document.querySelector('.x');
+        const y = document.querySelector('.y');
+        const mo = document.querySelector('.motte');
+
+        document.addEventListener('mousemove', function(event) {
+            x.innerHTML = "X :" + event.clientX;
+            y.innerHTML = "Y :" + event.clientY;
+        });
+
+        document.addEventListener('mousemove', function(event) {
+            mo.style.transform = `translate(${event.clientX - 24}px, ${event.clientY - 24}px)`;
+        });
+    </script>
+</body>
+</html>
